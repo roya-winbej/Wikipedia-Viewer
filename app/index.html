@@ -19,31 +19,28 @@
   </head>
   <body ng-app="wikiSearchApp">
 
-  <div class="container">
+  <div class="container" ng-controller="MainCtrl">
     <div id="morphsearch" class="morphsearch">
-      <form class="morphsearch-form">
-        <input class="morphsearch-input" type="search" placeholder="Search..."/>
+      <form class="morphsearch-form" ng-submit="search()">
+        <input class="morphsearch-input" type="search" placeholder="Search..." ng-model="query" ng-change="search()">
         <button class="morphsearch-submit" type="submit">Search</button>
       </form>
       <div class="morphsearch-content">
         <div class="dummy-column">
-          <h2>Interesting Articles</h2>
-          <a class="dummy-media-object" href="https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg/220px-Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" alt="star wars"/>
-            <h3>Star Wars: The Force Awakens</h3>
-          </a>
-          <a class="dummy-media-object" href="#">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d8/Game_of_Thrones_title_card.jpg/250px-Game_of_Thrones_title_card.jpg" alt="game of thrones"/>
-            <h3>Game of Thrones</h3>
-          </a>
-          <a class="dummy-media-object" href="#">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Indiafilm.svg/60px-Indiafilm.svg.png" alt="star wars"/>
-            <h3>List of Bollywood films of 2015</h3>
-          </a>
-          <a class="dummy-media-object" href="#">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg/220px-Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" alt="star wars"/>
-            <h3>Star Wars: The Force Awakens</h3>
-          </a>
+
+          <div class="error" ng-if="error">
+            <h2>Sorry, your query is not found:(</h2>
+          </div>
+          <!-- /.error -->
+
+          <div class="page" ng-repeat="page in pages" ng-if="!error">
+            <a class="dummy-media-object" href="https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens">
+              <img ng-src="{{page.thumbnail.source || page.thumbnail}}" alt="thumbnail"/>
+              <h3>{{page.title}}</h3>
+              <p>{{page.extract}}</p>
+            </a>
+          </div>
+          <!-- /.page -->
         </div>
       </div><!-- /morphsearch-content -->
       <span class="morphsearch-close"></span>
@@ -102,20 +99,22 @@
       } );
 
 
-      /***** for demo purposes only: don't allow to submit the form *****/
-      morphSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
+//      /***** for demo purposes only: don't allow to submit the form *****/
+//      morphSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
     })();
   </script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/services/wikidata.js"></script>
         <!-- endbuild -->
 </body>
 </html>
