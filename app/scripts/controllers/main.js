@@ -11,12 +11,21 @@ angular.module('wikiSearchApp')
   .controller('MainCtrl', function ($scope, wikiData) {
 
     $scope.query = '';
+    $scope.recentStatus = false;
+
+
+    $scope.recent = function () {
+      if (!_.isEmpty($scope.pages)) {
+        $scope.recentStatus = true;
+      }
+    };
 
     $scope.search = function () {
 
       wikiData.getData($scope.query, function (res) {
         console.log(res.data.query);
 
+        $scope.recentStatus = false;
 
         if ($scope.query === '') {
           $scope.pages = {};

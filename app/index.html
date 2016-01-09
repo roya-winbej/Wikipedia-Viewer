@@ -27,6 +27,7 @@
       </form>
       <div class="morphsearch-content">
         <div class="dummy-column">
+          <h2 ng-if="recentStatus">Recent searches</h2>
 
           <div class="error" ng-if="error">
             <h2>Sorry, your query is not found:(</h2>
@@ -43,7 +44,7 @@
           <!-- /.page -->
         </div>
       </div><!-- /morphsearch-content -->
-      <span class="morphsearch-close"></span>
+      <span class="morphsearch-close" ng-click="recent()"></span>
     </div><!-- /morphsearch -->
     <header class="codrops-header">
       <h1>Wiki Search <span>Real time wiki API search</span></h1>
@@ -89,6 +90,10 @@
       // events
       input.addEventListener( 'focus', toggleSearch );
       ctrlClose.addEventListener( 'click', toggleSearch );
+//      ctrlClose.addEventListener('click', function () {
+//        var targetTxt = document.getElementById('recent-search');
+//        classie.remove(targetTxt, 'hide');
+//      });
       // esc key closes search overlay
       // keyboard navigation events
       document.addEventListener( 'keydown', function( ev ) {
