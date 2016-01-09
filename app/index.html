@@ -11,10 +11,101 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" type="text/css" href="styles/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="styles/demo.css" />
+    <link rel="stylesheet" type="text/css" href="styles/component.css" />
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
   <body ng-app="wikiSearchApp">
+
+  <div class="container">
+    <div id="morphsearch" class="morphsearch">
+      <form class="morphsearch-form">
+        <input class="morphsearch-input" type="search" placeholder="Search..."/>
+        <button class="morphsearch-submit" type="submit">Search</button>
+      </form>
+      <div class="morphsearch-content">
+        <div class="dummy-column">
+          <h2>Interesting Articles</h2>
+          <a class="dummy-media-object" href="https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg/220px-Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" alt="star wars"/>
+            <h3>Star Wars: The Force Awakens</h3>
+          </a>
+          <a class="dummy-media-object" href="#">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d8/Game_of_Thrones_title_card.jpg/250px-Game_of_Thrones_title_card.jpg" alt="game of thrones"/>
+            <h3>Game of Thrones</h3>
+          </a>
+          <a class="dummy-media-object" href="#">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Indiafilm.svg/60px-Indiafilm.svg.png" alt="star wars"/>
+            <h3>List of Bollywood films of 2015</h3>
+          </a>
+          <a class="dummy-media-object" href="#">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg/220px-Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" alt="star wars"/>
+            <h3>Star Wars: The Force Awakens</h3>
+          </a>
+        </div>
+      </div><!-- /morphsearch-content -->
+      <span class="morphsearch-close"></span>
+    </div><!-- /morphsearch -->
+    <header class="codrops-header">
+      <h1>Wiki Search <span>Real time wiki API search</span></h1>
+    </header>
+    <div class="overlay"></div>
+  </div><!-- /container -->
+  <script src="scripts/classie.js"></script>
+  <script>
+    (function() {
+      var morphSearch = document.getElementById( 'morphsearch' ),
+              input = morphSearch.querySelector( 'input.morphsearch-input' ),
+              ctrlClose = morphSearch.querySelector( 'span.morphsearch-close' ),
+              isOpen = isAnimating = false,
+      // show/hide search area
+              toggleSearch = function(evt) {
+                // return if open and the input gets focused
+                if( evt.type.toLowerCase() === 'focus' && isOpen ) return false;
+
+                var offsets = morphsearch.getBoundingClientRect();
+                if( isOpen ) {
+                  classie.remove( morphSearch, 'open' );
+
+                  // trick to hide input text once the search overlay closes
+                  // todo: hardcoded times, should be done after transition ends
+                  if( input.value !== '' ) {
+                    setTimeout(function() {
+                      classie.add( morphSearch, 'hideInput' );
+                      setTimeout(function() {
+                        classie.remove( morphSearch, 'hideInput' );
+                        input.value = '';
+                      }, 300 );
+                    }, 500);
+                  }
+
+                  input.blur();
+                }
+                else {
+                  classie.add( morphSearch, 'open' );
+                }
+                isOpen = !isOpen;
+              };
+
+      // events
+      input.addEventListener( 'focus', toggleSearch );
+      ctrlClose.addEventListener( 'click', toggleSearch );
+      // esc key closes search overlay
+      // keyboard navigation events
+      document.addEventListener( 'keydown', function( ev ) {
+        var keyCode = ev.keyCode || ev.which;
+        if( keyCode === 27 && isOpen ) {
+          toggleSearch(ev);
+        }
+      } );
+
+
+      /***** for demo purposes only: don't allow to submit the form *****/
+      morphSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
+    })();
+  </script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
