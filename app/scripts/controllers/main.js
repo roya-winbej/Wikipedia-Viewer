@@ -18,7 +18,6 @@ angular.module('wikiSearchApp')
         console.log(res.data.query);
 
 
-
         if ($scope.query === '') {
           $scope.pages = {};
           $scope.error = false;

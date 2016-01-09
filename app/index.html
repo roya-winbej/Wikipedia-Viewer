@@ -34,7 +34,7 @@
           <!-- /.error -->
 
           <div class="page" ng-repeat="page in pages" ng-if="!error">
-            <a class="dummy-media-object" href="https://en.wikipedia.org/wiki/Star_Wars:_The_Force_Awakens">
+            <a class="dummy-media-object" target="_blank" href="https://en.wikipedia.org/?curid={{page.pageid}}">
               <img ng-src="{{page.thumbnail.source || page.thumbnail}}" alt="thumbnail"/>
               <h3>{{page.title}}</h3>
               <p>{{page.extract}}</p>
