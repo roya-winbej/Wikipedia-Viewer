@@ -2,10 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Wikipedia Viewer</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
@@ -51,63 +50,6 @@
     </header>
     <div class="overlay"></div>
   </div><!-- /container -->
-  <script src="scripts/classie.js"></script>
-  <script>
-    (function() {
-      var morphSearch = document.getElementById( 'morphsearch' ),
-              input = morphSearch.querySelector( 'input.morphsearch-input' ),
-              ctrlClose = morphSearch.querySelector( 'span.morphsearch-close' ),
-              isOpen = isAnimating = false,
-      // show/hide search area
-              toggleSearch = function(evt) {
-                // return if open and the input gets focused
-                if( evt.type.toLowerCase() === 'focus' && isOpen ) return false;
-
-                var offsets = morphsearch.getBoundingClientRect();
-                if( isOpen ) {
-                  classie.remove( morphSearch, 'open' );
-
-                  // trick to hide input text once the search overlay closes
-                  // todo: hardcoded times, should be done after transition ends
-                  if( input.value !== '' ) {
-                    setTimeout(function() {
-                      classie.add( morphSearch, 'hideInput' );
-                      setTimeout(function() {
-                        classie.remove( morphSearch, 'hideInput' );
-                        input.value = '';
-                      }, 300 );
-                    }, 500);
-                  }
-
-                  input.blur();
-                }
-                else {
-                  classie.add( morphSearch, 'open' );
-                }
-                isOpen = !isOpen;
-              };
-
-      // events
-      input.addEventListener( 'focus', toggleSearch );
-      ctrlClose.addEventListener( 'click', toggleSearch );
-//      ctrlClose.addEventListener('click', function () {
-//        var targetTxt = document.getElementById('recent-search');
-//        classie.remove(targetTxt, 'hide');
-//      });
-      // esc key closes search overlay
-      // keyboard navigation events
-      document.addEventListener( 'keydown', function( ev ) {
-        var keyCode = ev.keyCode || ev.which;
-        if( keyCode === 27 && isOpen ) {
-          toggleSearch(ev);
-        }
-      } );
-
-
-//      /***** for demo purposes only: don't allow to submit the form *****/
-//      morphSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
-    })();
-  </script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -118,6 +60,7 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/animation.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/services/wikidata.js"></script>
         <!-- endbuild -->
