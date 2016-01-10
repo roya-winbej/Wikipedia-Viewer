@@ -10,46 +10,43 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" type="text/css" href="styles/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="styles/demo.css" />
-    <link rel="stylesheet" type="text/css" href="styles/component.css" />
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
   <body ng-app="wikiSearchApp">
 
   <div class="container" ng-controller="MainCtrl">
-    <div id="morphsearch" class="morphsearch">
-      <form class="morphsearch-form" ng-submit="search()">
-        <input class="morphsearch-input" type="search" placeholder="Search..." ng-model="query" ng-change="search()">
-        <button class="morphsearch-submit" type="submit">Search</button>
-      </form>
-      <div class="morphsearch-content">
-        <div class="dummy-column">
-          <h2 ng-if="recentStatus">Recent searches</h2>
+      <div class="search-title">
+        <h1>Wikipedia Search</h1>
+      </div>
+      <div id="search" class="search">
+        <form class="search-form" ng-submit="search()">
+          <input class="search-input" type="search" placeholder="Search..." ng-model="query" ng-change="search()">
+          <button class="search-submit" type="submit">Search</button>
+        </form>
+        <div class="search-content">
+          <div class="content-wrap">
+            <h2 ng-if="recentStatus">Recent searches</h2>
 
-          <div class="error" ng-if="error">
-            <h2>Sorry, your query is not found:(</h2>
-          </div>
-          <!-- /.error -->
+            <div class="error" ng-if="error">
+              <h2>Oops! That page couldn`t be found.</h2>
+            </div>
+            <!-- /.error -->
 
-          <div class="page" ng-repeat="page in pages" ng-if="!error">
-            <a class="dummy-media-object" target="_blank" href="https://en.wikipedia.org/?curid={{page.pageid}}">
-              <img ng-src="{{page.thumbnail.source || page.thumbnail}}" alt="thumbnail"/>
-              <h3>{{page.title}}</h3>
-              <p>{{page.extract}}</p>
-            </a>
+            <div class="page" ng-repeat="page in pages" ng-if="!error">
+              <a class="page-media" target="_blank" href="https://en.wikipedia.org/?curid={{page.pageid}}">
+                <img ng-src="{{page.thumbnail.source || page.thumbnail}}" alt="thumbnail" >
+                <h2>{{page.title}}</h2>
+                <p>{{page.extract}}</p>
+              </a>
+            </div>
+            <!-- /.page -->
           </div>
-          <!-- /.page -->
-        </div>
-      </div><!-- /morphsearch-content -->
-      <span class="morphsearch-close" ng-click="recent()"></span>
-    </div><!-- /morphsearch -->
-    <header class="codrops-header">
-      <h1>Wiki Search <span>Real time wiki API search</span></h1>
-    </header>
-    <div class="overlay"></div>
-  </div><!-- /container -->
+        </div><!-- /.search-content -->
+        <span class="search-close" ng-click="recent()"></span>
+      </div><!-- /.search -->
+      <div class="overlay"></div>
+  </div><!-- /.container -->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -64,5 +61,6 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/services/wikidata.js"></script>
         <!-- endbuild -->
+
 </body>
 </html>

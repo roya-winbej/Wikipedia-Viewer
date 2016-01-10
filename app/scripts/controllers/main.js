@@ -23,7 +23,6 @@ angular.module('wikiSearchApp')
     $scope.search = function () {
 
       wikiData.getData($scope.query, function (res) {
-        console.log(res.data.query);
 
         $scope.recentStatus = false;
 
@@ -35,7 +34,7 @@ angular.module('wikiSearchApp')
 
         if (res.data.query === undefined) {
           $scope.error = true;
-          return console.log("We don`t find you query:(");
+          return false;
         }
 
         _.forEach(res.data.query.pages, function (article) {
