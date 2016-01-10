@@ -2,8 +2,8 @@
   'use strict';
 
   var morphSearch = document.getElementById( 'morphsearch' ),
-    input = morphSearch.querySelector( 'input.morphsearch-input' ),
-    ctrlClose = morphSearch.querySelector( 'span.morphsearch-close' ),
+    input = morphSearch.querySelector( 'input.search-input' ),
+    ctrlClose = morphSearch.querySelector( 'span.search-close' ),
     isOpen = false,
   // show/hide search area
     toggleSearch = function(evt) {
