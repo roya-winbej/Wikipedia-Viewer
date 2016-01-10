@@ -9,7 +9,7 @@
 angular.module('wikiSearchApp')
   .directive('article', function () {
     return {
-      templateUrl: '/views/article.html',
+      templateUrl: 'views/article.html',
       restrict: 'E'
     };
   });

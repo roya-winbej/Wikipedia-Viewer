@@ -39,7 +39,7 @@ angular.module('wikiSearchApp')
 
         _.forEach(res.data.query.pages, function (article) {
           if (article.thumbnail === undefined) {
-            article.thumbnail = '/images/wiki.png';
+            article.thumbnail = 'images/wiki.png';
           }
         });
 
