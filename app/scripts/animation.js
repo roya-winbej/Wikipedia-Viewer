@@ -8,7 +8,7 @@
   // show/hide search area
     toggleSearch = function(evt) {
       // return if open and the input gets focused
-      if( evt.type.toLowerCase() === 'focus' && isOpen ) return false;
+      if( evt.type.toLowerCase() === 'focus' && isOpen ) { return false; }
 
       if( isOpen ) {
         search.classList.remove('open');

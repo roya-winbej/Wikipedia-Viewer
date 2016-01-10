@@ -33,14 +33,8 @@
             </div>
             <!-- /.error -->
 
-            <div class="page" ng-repeat="page in pages" ng-if="!error">
-              <a class="page-media" target="_blank" href="https://en.wikipedia.org/?curid={{page.pageid}}">
-                <img ng-src="{{page.thumbnail.source || page.thumbnail}}" alt="thumbnail" >
-                <h2>{{page.title}}</h2>
-                <p>{{page.extract}}</p>
-              </a>
-            </div>
-            <!-- /.page -->
+          <article></article>
+
           </div>
         </div><!-- /.search-content -->
         <span class="search-close" ng-click="recent()"></span>
@@ -60,6 +54,7 @@
         <script src="scripts/animation.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/services/wikidata.js"></script>
+        <script src="scripts/directives/article.js"></script>
         <!-- endbuild -->
 
 </body>

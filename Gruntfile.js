@@ -354,10 +354,10 @@ module.exports = function (grunt) {
     htmlmin: {
       dist: {
         options: {
-          collapseWhitespace: true,
-          conservativeCollapse: true,
-          collapseBooleanAttributes: true,
-          removeCommentsFromCDATA: true
+          collapseWhitespace: false,
+          conservativeCollapse: false,
+          collapseBooleanAttributes: false,
+          removeCommentsFromCDATA: false
         },
         files: [{
           expand: true,
@@ -486,7 +486,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'wiredep',
     'useminPrepare',
     'concurrent:dist',
     'postcss',
